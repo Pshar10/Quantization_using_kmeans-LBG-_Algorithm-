@@ -36,8 +36,9 @@ decode = decoded
 
 #sound(decode,rate)
 n=4 #4bits
-q =int((np.max(test_signal))- (np.min(test_signal))/(2**n))  #stepsize, 4 bit accuracy
-mid_tread_quantization = coded_uniform_q_signal*q
+qu =((np.max(test_signal))- (np.min(test_signal)))
+step_size = qu/2**n  #stepsize, 4 bit accuracy
+mid_tread_quantization = coded_uniform_q_signal*step_size
 error1 = test_signal-mid_tread_quantization
 error2 = test_signal-decode
 
@@ -58,8 +59,8 @@ plt.title('Test_signal vs vector-quantied ' )
 plt.show()
 
 
-l2, = plt.plot(mid_tread_quantization, color = 'blue')
 l1, = plt.plot(decode, color = 'red')
+l2, = plt.plot(mid_tread_quantization, color = 'blue')
 plt.legend(handles = [l1, l2],labels = ['vq','uniform'])
 plt.title('Vector-quantied signal vs Uniform quantization' )
 plt.show()
